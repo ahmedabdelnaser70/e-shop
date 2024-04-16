@@ -13,9 +13,9 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetAllProducts()
+        public IActionResult GetAllProducts()
         {
-            return Ok("all Products");
+            return Ok("all Products is here");
         }
     }
 }
