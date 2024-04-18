@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data
 {
-    public class StoreContext: DbContext
+    public class StoreContext : DbContext
     {
-        public StoreContext(DbContextOptions<StoreContext> options):base(options)
+        public StoreContext(DbContextOptions<StoreContext> options) : base(options)
         {
-            
+
         }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductBrand> ProductBrands { get; set; }
+        public virtual DbSet<ProductType> ProductTypes { get; set; }
     }
 }

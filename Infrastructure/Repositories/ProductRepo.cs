@@ -17,6 +17,7 @@ namespace Infrastructure.Repositories
         {
             _Context = Context;
         }
+
         public async Task<IReadOnlyList<Product>> GetAllProduct()
         {
             return await _Context.Products.ToListAsync();
