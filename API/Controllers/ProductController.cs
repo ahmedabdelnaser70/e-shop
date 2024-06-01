@@ -20,14 +20,14 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetAllProducts()
         {
-            var Products = (List<Product>)await _ProductRepo.GetAllProduct();
+            var Products = (List<Product>)await _ProductRepo.GetProductsAsync();
             return Ok(Products);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProductID(int id)
         {
-            var Product = await _ProductRepo.GetProductById(id);
+            var Product = await _ProductRepo.GetProductByIdAsync(id);
             if (Product == null)
             {
                 return NotFound();
@@ -35,5 +35,17 @@ namespace API.Controllers
             return Ok(Product);
         }
 
+
+        [HttpGet("brands")]
+        public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductBrands()
+        {
+            return Ok(await _ProductRepo.GetProductBrandsAsync());
+        }
+
+        [HttpGet("types")]
+        public async Task<ActionResult<IReadOnlyList<ProductType>>> GetProductTypes()
+        {
+            return Ok(await _ProductRepo.GetProductTypesAsync());
+        }
     }
 }
