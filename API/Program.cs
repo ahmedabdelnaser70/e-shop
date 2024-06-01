@@ -36,4 +36,19 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+//To create db migration every time when i build the porgram
+using var scope = app.Services.CreateScope();
+var service = scope.ServiceProvider;
+var context = service.GetRequiredService<StoreContext>();
+var logger = service.GetRequiredService<ILogger<Program>>();
+try
+{
+    await context.Database.MigrateAsync();
+}
+catch (Exception ex)
+{
+    logger.LogError(ex, " An error occured during migration");
+}
+//----------------------------------------------------------
+
 app.Run();
