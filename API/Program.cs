@@ -22,6 +22,7 @@ namespace API
                 options.UseSqlite(builder.Configuration.GetConnectionString("StoreDB"))
             );
 
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<IProductRepo, ProductRepo>();
             builder.Services.AddControllers();
 
