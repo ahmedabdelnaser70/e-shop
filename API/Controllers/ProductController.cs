@@ -1,4 +1,6 @@
-﻿using Core.Entities;
+﻿using API.Dtos;
+using AutoMapper;
+using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
 using Infrastructure.Data;
@@ -15,11 +17,13 @@ namespace API.Controllers
         private readonly IGenericRepository<Product> _ProductsRepo;
         private readonly IGenericRepository<ProductBrand> _BrandsRepo;
         private readonly IGenericRepository<ProductType> _TypesRepo;
-        public ProductController(IGenericRepository<Product> productsRepo, IGenericRepository<ProductBrand> brandsRepo, IGenericRepository<ProductType> typesRepo)
+        private readonly IMapper _Mapper;
+        public ProductController(IGenericRepository<Product> productsRepo, IGenericRepository<ProductBrand> brandsRepo, IGenericRepository<ProductType> typesRepo, IMapper mapper)
         {
             _ProductsRepo = productsRepo;
             _BrandsRepo = brandsRepo;
             _TypesRepo = typesRepo;
+            _Mapper = mapper;
         }
 
 
@@ -32,7 +36,7 @@ namespace API.Controllers
             var spec = new ProductsWithTypesAndBrandsSpecification();
             var Products = await _ProductsRepo.ListAsync(spec);
 
-            return Ok(Products);
+            return Ok(_Mapper.Map<Product, ProductDto>(Products));
         }
 
         [HttpGet("{id}")]
@@ -48,7 +52,7 @@ namespace API.Controllers
             {
                 return NotFound();
             }
-            return Ok(Product);
+            return Ok(_Mapper.Map<Product, ProductDto>(Product));
         }
 
 

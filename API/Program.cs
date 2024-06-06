@@ -23,6 +23,7 @@ namespace API
             );
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             builder.Services.AddScoped<IProductRepo, ProductRepo>();
             builder.Services.AddControllers();
 
