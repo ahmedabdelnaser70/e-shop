@@ -45,6 +45,9 @@ namespace API
 
             app.UseHttpsRedirection();
 
+            // to serve static files(images)
+            app.UseStaticFiles();
+
             app.UseAuthorization();
 
             app.MapControllers();
