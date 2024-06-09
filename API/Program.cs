@@ -1,7 +1,6 @@
+using API.Extensions;
 using API.Middleware;
-using Core.Interfaces;
 using Infrastructure.Data;
-using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -19,20 +18,9 @@ namespace API
 
 
             // Add services to the container.
-            builder.Services.AddDbContext<StoreContext>(options =>
-                options.UseSqlite(builder.Configuration.GetConnectionString("StoreDB"))
-            );
-
-            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            builder.Services.AddScoped<IProductRepo, ProductRepo>();
             builder.Services.AddControllers();
+            builder.Services.AddApplicationServices(builder.Configuration);
 
-
-
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
 
 
             var app = builder.Build();
@@ -57,6 +45,7 @@ namespace API
             app.MapControllers();
 
             //To create db migration every time when i build the porgram
+            #region create db migration
             using var scope = app.Services.CreateScope();
             var service = scope.ServiceProvider;
             var context = service.GetRequiredService<StoreContext>();
@@ -71,7 +60,8 @@ namespace API
             {
                 logger.LogError(ex, " An error occured during migration");
             }
-            //----------------------------------------------------------
+            #endregion
+
 
             app.Run();
         }
