@@ -12,9 +12,7 @@ namespace API.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
 
-            services.AddDbContext<StoreContext>(options =>
-                options.UseSqlite(config.GetConnectionString("StoreDB")));
-
+            services.AddDbContext<StoreContext>(options => options.UseSqlite(config.GetConnectionString("StoreDB")));
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IProductRepo, ProductRepo>();

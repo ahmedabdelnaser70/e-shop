@@ -13,21 +13,18 @@ namespace API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-
             //AddCors
-
 
             // Add services to the container.
             builder.Services.AddControllers();
             builder.Services.AddApplicationServices(builder.Configuration);
-
-
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             app.UseMiddleware<ExceptionMiddleware>();
 
+            //for error handling
             app.UseStatusCodePagesWithReExecute("errors/{0}");
             if (app.Environment.IsDevelopment())
             {
