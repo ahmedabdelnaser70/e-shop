@@ -29,16 +29,17 @@ namespace API.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<List<ProductDto>>> GetAllProducts(string sort)
+        public async Task<ActionResult<List<ProductDto>>> GetAllProducts(string sort, int? brandId, int? typeId)
         {
             //var Products = (List<Product>)await _ProductsRepo.GetListAsync();
 
             // ------------- apply specifications -------------
-            var spec = new ProductsWithTypesAndBrandsSpecification(sort);
+            var spec = new ProductsWithTypesAndBrandsSpecification(sort, brandId, typeId);
             var Products = await _ProductsRepo.ListAsync(spec);
 
             return Ok(_Mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductDto>>(Products));
         }
+
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
