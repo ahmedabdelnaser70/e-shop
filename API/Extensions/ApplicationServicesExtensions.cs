@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace API.Extensions
 {
@@ -43,6 +44,20 @@ namespace API.Extensions
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+
+            //Add Cors
+            #region Add Cors
+            var cors = "CorsPolicy";
+            services.AddCors(options =>
+            {
+                options.AddPolicy(cors, builder =>
+                {
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyOrigin();
+                    builder.AllowAnyHeader();
+                });
+            });
+            #endregion
 
             return services;
         }

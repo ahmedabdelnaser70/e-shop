@@ -13,8 +13,6 @@ namespace API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //AddCors
-
             // Add services to the container.
             builder.Services.AddControllers();
             builder.Services.AddApplicationServices(builder.Configuration);
@@ -36,6 +34,9 @@ namespace API
 
             // to serve static files(images)
             app.UseStaticFiles();
+
+            // to use Cors
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 
