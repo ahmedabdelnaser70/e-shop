@@ -45,10 +45,8 @@ namespace Infrastructure.Repositories
             return await ApplySpecification(spec).CountAsync();
         }
 
-        private IQueryable<T> ApplySpecification(ISpecification<T> spec)
-        {
-            return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);
-        }
+        private IQueryable<T> ApplySpecification(ISpecification<T> spec) =>
+             SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);
 
     }
 }
