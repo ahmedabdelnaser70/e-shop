@@ -13,21 +13,29 @@
       <!----------------- Filter by Brands  ---------->
       <h5 class="text-danger ms-3">Brands</h5>
       <ul class="list-group my-3">
-        <li class="list-group-item active">An active item</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
-        <li class="list-group-item">A fourth item</li>
-        <li class="list-group-item">And a fifth one</li>
+        <li
+          class="list-group-item"
+          *ngFor="let brand of brands"
+          [class.active]="brand.id === brandIdSelected"
+          [value]="brand.id"
+          (click)="onBrandSelected(brand.id)"
+        >
+          {{ brand.name }}
+        </li>
       </ul>
 
       <!----------------- Filter by Types  ---------->
       <h5 class="text-danger ms-3">Types</h5>
       <ul class="list-group my-3">
-        <li class="list-group-item active">An active item</li>
-        <li class="list-group-item">A second item</li>
-        <li class="list-group-item">A third item</li>
-        <li class="list-group-item">A fourth item</li>
-        <li class="list-group-item">And a fifth one</li>
+        <li
+          class="list-group-item"
+          *ngFor="let type of types"
+          [class.active]="type.id === typeIdSelected"
+          [value]="type.id"
+          (click)="onTypeSelected(type.id)"
+        >
+          {{ type.name }}
+        </li>
       </ul>
     </section>
 
@@ -48,7 +56,7 @@
       <!---------- card content ---------->
       <div class="row row-cols-3 g-3">
         <div class="col" *ngFor="let product of products">
-          <app-product-item></app-product-item>
+          <app-product-item [productItems]="product"></app-product-item>
         </div>
       </div>
     </section>
