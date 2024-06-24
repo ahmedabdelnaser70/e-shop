@@ -16,10 +16,9 @@
         <li
           class="list-group-item"
           *ngFor="let brand of brands"
-          [class.active]="brand.id === brandIdSelected"
+          [class.active]="brand.id === shopParams.brandId"
           [value]="brand.id"
-          (click)="onBrandSelected(brand.id)"
-        >
+          (click)="onBrandSelected(brand.id)">
           {{ brand.name }}
         </li>
       </ul>
@@ -30,34 +29,48 @@
         <li
           class="list-group-item"
           *ngFor="let type of types"
-          [class.active]="type.id === typeIdSelected"
+          [class.active]="type.id === shopParams.typeId"
           [value]="type.id"
-          (click)="onTypeSelected(type.id)"
-        >
+          (click)="onTypeSelected(type.id)">
           {{ type.name }}
         </li>
       </ul>
     </section>
 
+    <!-- ------------------------------------------------------------ -->
     <!---------- main content section ---------->
     <section class="col-9">
-      <!---------- header and search ---------->
+      <!---------- header  ---------->
       <div class="d-flex justify-content-between align-items-center pb-2">
-        <header>
-          <span>Showing <strong>10</strong> of <strong>18</strong></span>
-        </header>
+        <!-- passing input properites -->
+        <app-paging-header
+          [totalCount]="totalCount"
+          [pageNumber]="shopParams.pageNumber"
+          [pageSize]="shopParams.pageSize">
+        </app-paging-header>
+
+        <!------------ search ---------- -->
         <div class="d-flex mt-2">
-          <input type="text" placeholder="Search" class="form-control me-2" />
-          <button class="btn btn-outline-primary mx-2">Search</button>
-          <button class="btn btn-outline-success">Reset</button>
+          <!-- this keyup to use enter in search -->
+          <input (keyup.enter)="onSearch()" type="text" placeholder="Search" class="form-control me-2" #search />
+          <button (click)="onSearch()" class="btn btn-outline-primary mx-2">Search</button>
+          <button (click)="onReset()" class="btn btn-outline-success">Reset</button>
         </div>
       </div>
 
       <!---------- card content ---------->
-      <div class="row row-cols-3 g-3">
+      <div class="row row-cols-3 g-3 mb-3">
         <div class="col" *ngFor="let product of products">
           <app-product-item [productItems]="product"></app-product-item>
         </div>
+      </div>
+
+      <!---------- Pagination content ---------->
+      <div class="d-flex justify-content-center" *ngIf="totalCount > 0">
+        <app-pager
+          [totalCount]="totalCount"
+          [pageSize]="shopParams.pageSize"
+          (pageChanged)="onPageChaged($event)"></app-pager>
       </div>
     </section>
   </div>
