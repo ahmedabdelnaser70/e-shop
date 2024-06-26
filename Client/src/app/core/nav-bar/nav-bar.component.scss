@@ -9,3 +9,16 @@
   top: -12px;
   right: 32px;
 }
+
+a {
+  color: rgb(43, 49, 50);
+
+  &.active {
+    color: red;
+    font-weight: bold;
+  }
+}
+
+.logo {
+  cursor: pointer;
+}
