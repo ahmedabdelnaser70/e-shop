@@ -13,8 +13,8 @@ import { ShopParams } from '../shared/models/shopParams';
 export class ShopComponent implements OnInit {
   @ViewChild('search') searchTerm?: ElementRef;
   products: Product[] = [];
-  brands?: Brand[];
-  types?: Type[];
+  brands: Brand[] = [];
+  types: Type[] = [];
   shopParams = new ShopParams();
   sortOptions = [
     { name: 'Alphabetical', value: 'name' },
