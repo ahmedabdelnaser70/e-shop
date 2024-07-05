@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace API.Extensions
@@ -14,6 +15,15 @@ namespace API.Extensions
         {
 
             services.AddDbContext<StoreContext>(options => options.UseSqlite(config.GetConnectionString("StoreDB")));
+
+            //this line to set something like DB in Redis for Basket
+            services.AddSingleton<IConnectionMultiplexer>(c =>
+            {
+                var option = ConfigurationOptions.Parse(config.GetConnectionString("Redis"));
+                return ConnectionMultiplexer.Connect(option);
+            });
+
+            services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IProductRepo, ProductRepo>();
