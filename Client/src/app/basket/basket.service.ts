@@ -61,7 +61,9 @@ export class BasketService {
     const item = basket.items.find((x) => x.id === id);
     if (item) {
       item.quantity -= quantity;
-      basket.items = basket.items.filter((x) => x.id == id);
+      if (item.quantity === 0) {
+        basket.items = basket.items.filter((x) => x.id !== id);
+      }
       if (basket.items.length > 0) this.setBasket(basket);
       else this.deleteBasket(basket);
     }
