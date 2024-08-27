@@ -27,7 +27,7 @@ namespace API
             app.UseMiddleware<ExceptionMiddleware>();
 
             //for error handling
-            app.UseStatusCodePagesWithReExecute("errors/{0}");
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -42,6 +42,7 @@ namespace API
             // to use Cors
             app.UseCors("CorsPolicy");
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
