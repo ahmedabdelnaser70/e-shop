@@ -28,6 +28,8 @@ namespace API
 
             //for error handling
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
+
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
