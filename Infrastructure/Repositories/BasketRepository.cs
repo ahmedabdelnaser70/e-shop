@@ -17,6 +17,7 @@ namespace Infrastructure.Repositories
         {
             _database = redis.GetDatabase();
         }
+
         public Task<bool> DeleteBasketAsync(string basketId)
         {
             return _database.KeyDeleteAsync(basketId);
